@@ -1,17 +1,17 @@
-import 'package:chat_app/auth/login/login_screen.dart';
-import 'package:chat_app/auth/register/register_controller.dart';
+
+import 'package:chat_app/auth/login/login_controller.dart';
+import 'package:chat_app/auth/register/register_screen.dart';
+import 'package:chat_app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../constants.dart';
+class LoginScreen extends StatelessWidget {
+  LoginScreen({super.key});
 
-class RegisterScreen extends StatelessWidget {
-  RegisterScreen({super.key});
-
-  final RegisterController registerController = Get.put(RegisterController());
+  final loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,7 @@ class RegisterScreen extends StatelessWidget {
               ),
               SizedBox(
                 child: Text(
-                  "Want to get some crazy deals?\nSignUp Here",
-                  textAlign: TextAlign.center,
+                  "Please enter the details to continue",
                   style: GoogleFonts.rubik(
                       color: Colors.black,
                       fontSize: 12.sp,
@@ -52,7 +51,10 @@ class RegisterScreen extends StatelessWidget {
                   children: [
                     SizedBox(
                       child: TextField(
-                        onChanged: registerController.setFirstname,
+                        controller: loginController.loginEmailController,
+                        onChanged: (value) {
+                          loginController.loginEmail.value = value;
+                        },
                         cursorColor: Constants().cursorColor,
                         decoration: InputDecoration(
                             filled: true,
@@ -60,7 +62,7 @@ class RegisterScreen extends StatelessWidget {
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 9.sp, horizontal: 8.sp),
                             isDense: true,
-                            // border: InputBorder.none,
+// border: InputBorder.none,
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8.sp),
                                 borderSide: const BorderSide(
@@ -69,92 +71,21 @@ class RegisterScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8.sp),
                                 borderSide: const BorderSide(
                                     color: Colors.white, width: 0.0)),
-                            hintText: "Enter First Name"),
-                      ),
-                    ),
-                    SizedBox(height: 10.sp),
-                    SizedBox(
-                      child: TextField(
-                        onChanged: registerController.setLastname,
-                        cursorColor: Constants().cursorColor,
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white70,
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 9.sp, horizontal: 8.sp),
-                            isDense: true,
-                            // border: InputBorder.none,
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.sp),
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 0.0)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.sp),
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 0.0)),
-                            hintText: "Enter Last Name"),
-                      ),
-                    ),
-                    SizedBox(height: 10.sp),
-                    SizedBox(
-                      child: TextField(
-                        onChanged: registerController.setUsername,
-                        cursorColor: Constants().cursorColor,
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.white70,
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 9.sp, horizontal: 8.sp),
-                            isDense: true,
-                            // border: InputBorder.none,
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.sp),
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 0.0)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.sp),
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 0.0)),
-                            hintText: "Enter Username"),
-                      ),
-                    ),
-                    SizedBox(height: 10.sp),
-                    SizedBox(
-                      child: Obx(
-                         () {
-                          return TextField(
-                            onChanged: registerController.setEmail,
-                            cursorColor: Constants().cursorColor,
-                            decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.white70,
-                                errorText: registerController.emailError.value.isEmpty ? null : registerController.emailError.value,
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: 9.sp, horizontal: 8.sp),
-                                isDense: true,
-                                // border: InputBorder.none,
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.sp),
-                                    borderSide: const BorderSide(
-                                        color: Colors.white, width: 0.0)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(8.sp),
-                                    borderSide: const BorderSide(
-                                        color: Colors.white, width: 0.0)),
-                                hintText: "Enter Email"),
-                          );
-                        }
+                            hintText: "Enter Email"),
                       ),
                     ),
                     SizedBox(height: 10.sp),
                     SizedBox(
                       child: Obx(() {
                         return TextField(
+                          controller: loginController.loginPasswordController,
                           obscureText:
-                          registerController.showLoginPassword.value == false
+                          loginController.showLoginPassword.value == false
                               ? true
                               : false,
-                          onChanged: registerController.setPassword,
+                          onChanged: (value) {
+                            loginController.loginPassword.value = value;
+                          },
                           cursorColor: Constants().cursorColor,
                           decoration: InputDecoration(
                             filled: true,
@@ -162,7 +93,7 @@ class RegisterScreen extends StatelessWidget {
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 9.sp, horizontal: 8.sp),
                             isDense: true,
-                            // border: InputBorder.none,
+// border: InputBorder.none,
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8.sp),
                               borderSide: const BorderSide(
@@ -176,13 +107,13 @@ class RegisterScreen extends StatelessWidget {
                             hintText: "Enter Password",
                             suffixIcon: GestureDetector(
                                 onTap: () {
-                                  registerController.showLoginPassword.value =
-                                  !registerController.showLoginPassword.value;
+                                  loginController.showLoginPassword.value =
+                                  !loginController.showLoginPassword.value;
                                 },
                                 child: Padding(
                                   padding: EdgeInsets.only(right: 4.sp),
-                                  child: registerController
-                                      .showLoginPassword.value ==
+                                  child:
+                                  loginController.showLoginPassword.value ==
                                       false
                                       ? Icon(
                                     Icons.visibility,
@@ -219,19 +150,41 @@ class RegisterScreen extends StatelessWidget {
                     SizedBox(height: 10.sp),
                     SizedBox(
                       child: ElevatedButton(
-                        onPressed: () async{
-                         await registerController.signUp();
+                        onPressed: () async {
+                          await loginController.loginMethod();
                         },
                         style: TextButton.styleFrom(
                             backgroundColor: Constants().buttonBackground,
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(3.sp))),
-                        child: Text(
-                          "Register Here",
-                          style: GoogleFonts.rubik(
-                              fontSize: 12.sp, fontWeight: FontWeight.w500),
-                        ),
+                        child: Obx(() {
+                          return loginController.isLoading.value == true
+                              ? Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "Logging in",
+                                style: GoogleFonts.rubik(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              SizedBox(
+                                width: 4.sp,
+                              ),
+                              SizedBox(
+                                  height: 12.sp,
+                                  width: 12.sp,
+                                  child: const CircularProgressIndicator(color: Colors.white, strokeWidth: 2,))
+                            ],
+                          )
+                              : Text(
+                            "Login Here",
+                            style: GoogleFonts.rubik(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500),
+                          );
+                        }),
                       ),
                     ),
                     SizedBox(height: 6.sp),
@@ -239,7 +192,7 @@ class RegisterScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Already have an account?",
+                          "Don't have an account?",
                           style: GoogleFonts.rubik(
                               fontSize: 11.sp, fontWeight: FontWeight.w400),
                         ),
@@ -248,10 +201,10 @@ class RegisterScreen extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Get.off(() => LoginScreen());
+                            Get.off(() => RegisterScreen());
                           },
                           child: Text(
-                            "Login Here",
+                            "SignUp Here",
                             style: GoogleFonts.rubik(
                                 fontSize: 11.sp,
                                 color: Constants().buttonBackground,
@@ -264,8 +217,8 @@ class RegisterScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                // height: 400,
-                // child: Text("kjsjvbh"),
+// height: 400,
+// child: Text("kjsjvbh"),
               )
             ],
           ),

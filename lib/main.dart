@@ -1,4 +1,5 @@
 import 'package:chat_app/auth/register/register_screen.dart';
+import 'package:chat_app/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: RegisterScreen(),
+        home: NewSplashScreen(),
+        // home: RegisterScreen(),
         // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       );
     }
