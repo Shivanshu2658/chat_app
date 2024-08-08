@@ -53,7 +53,7 @@ class AddUserScreen extends StatelessWidget {
                       subtitle: Text(user?.userName ?? "",  style: GoogleFonts.rubik(fontSize: 9.sp)),
 
                       onTap: () {
-                        Get.off(() => ChatScreen());
+                        Get.off(() => ChatScreen( index: index,));
                         // Handle user tap
                       },
                     );
