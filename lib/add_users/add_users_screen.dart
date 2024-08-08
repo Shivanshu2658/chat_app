@@ -50,6 +50,7 @@ class AddUserScreen extends StatelessWidget {
                       ),
                       title: Text("${user?.firstName} ${user?.lastName}" ?? "", style: GoogleFonts.rubik(fontSize: 12.sp)),
                       subtitle: Text(user?.userName ?? "",  style: GoogleFonts.rubik(fontSize: 9.sp)),
+
                       onTap: () {
                         // Handle user tap
                       },
