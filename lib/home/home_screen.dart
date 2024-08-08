@@ -1,3 +1,4 @@
+import 'package:chat_app/add_users/add_users_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -23,6 +24,12 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         body: Center(
           child: Text("Home"),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Get.to(()=> AddUserScreen());
+          },
+          child: const Icon(Icons.add_rounded),
         ),
       ),
     );

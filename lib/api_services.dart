@@ -44,15 +44,21 @@ class ApiProvider {
     }
   }
 
-  Future<dynamic> getApiCall(String url, String token) async {
+  Future<dynamic> getApiCall(String endpoint) async {
     var responseJson;
+
+    String url = '$baseUrl/$endpoint';
+
+
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    final token = await pref.getString('token') ?? "";
     try {
       print("--GET request $url");
       final response = await http.get(
         Uri.parse(url),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer $token',
+          'Authorization': '$token',
         },
       );
       if (kDebugMode) {
