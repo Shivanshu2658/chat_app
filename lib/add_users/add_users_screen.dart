@@ -18,8 +18,9 @@ class AddUserScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Constants().scaffoldBackground,
       appBar: AppBar(
-        title: Text('User List', style: GoogleFonts.rubik(fontSize: 16.sp, fontWeight: FontWeight.bold)),
-        backgroundColor: Constants().scaffoldBackground,
+        title: Text('Users List', style: GoogleFonts.rubik(fontSize: 16.sp, fontWeight: FontWeight.bold)),
+        backgroundColor: Constants().appbarBackground,
+        foregroundColor: Constants().appbarForeground,
         elevation: 0,
         centerTitle: true,
       ),
@@ -28,21 +29,34 @@ class AddUserScreen extends StatelessWidget {
           if (addUserController.userList.isEmpty) {
             return Center(child: Text('No users found', style: GoogleFonts.rubik(fontSize: 12.sp)));
           } else {
-            return ListView.builder(
-              itemCount: addUserController.response?.users?.length,
-              itemBuilder: (context, index) {
-                final user = addUserController.response?.users?[index];
-                return ListTile(
-                  leading: CircleAvatar(
-                    child: Text(user?.userName?[0].toUpperCase() ?? ""),
-                  ),
-                  title: Text(user?.userName ?? "", style: GoogleFonts.rubik(fontSize: 12.sp)),
-                  trailing: Icon(Icons.arrow_forward),
-                  onTap: () {
-                    // Handle user tap
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+                  child: Text("All Users", textAlign: TextAlign.start, style: GoogleFonts.rubik(fontSize: 12.sp)),
+                ),
+                ListView.builder(
+                  itemCount: addUserController.response?.users?.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    final user = addUserController.response?.users?[index];
+                    return ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Constants().buttonBackground,
+                        foregroundColor: Constants().appbarForeground,
+                        child: Text(user?.userName?[0].toUpperCase() ?? ""),
+                      ),
+                      title: Text("${user?.firstName} ${user?.lastName}" ?? "", style: GoogleFonts.rubik(fontSize: 12.sp)),
+                      subtitle: Text(user?.userName ?? "",  style: GoogleFonts.rubik(fontSize: 9.sp)),
+                      onTap: () {
+                        // Handle user tap
+                      },
+                    );
                   },
-                );
-              },
+                ),
+              ],
             );
           }
         }),
