@@ -3,8 +3,8 @@ import 'package:chat_app/auth/register/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SignUpPage extends StatelessWidget {
-  final SignUpController controller = Get.put(SignUpController());
+class RegisterScreen extends StatelessWidget {
+  final RegisterController controller = Get.put(RegisterController());
 
   @override
   Widget build(BuildContext context) {

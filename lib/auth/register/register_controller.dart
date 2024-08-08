@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class SignUpController extends GetxController {
+class RegisterController extends GetxController {
   var firstname = ''.obs;
   var lastname = ''.obs;
   var username = ''.obs;
