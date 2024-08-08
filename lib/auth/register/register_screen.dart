@@ -1,5 +1,5 @@
 // signup_page.dart
-import 'package:chat_app/auth/signup/sign_up_controller.dart';
+import 'package:chat_app/auth/register/register_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
